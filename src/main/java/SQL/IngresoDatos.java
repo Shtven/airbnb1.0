@@ -9,7 +9,7 @@ package SQL;
  * @author gdemg
  */
 public class IngresoDatos extends javax.swing.JFrame {
-
+    int dato = 0;
     /**
      * Creates new form IngresoDatos
      */
@@ -17,7 +17,6 @@ public class IngresoDatos extends javax.swing.JFrame {
         initComponents();
         Consultas datos = new Consultas();
         datos.mostrarTabla(tablamuestra);
-        datos.comboZona(Zona);
         ID.setEnabled(false);
         Cambiar.setEnabled(false);
         Precio.setEnabled(false);
@@ -123,7 +122,18 @@ public class IngresoDatos extends javax.swing.JFrame {
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Zona");
 
-        Zona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Zona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecciona una opción" }));
+        Zona.setSelectedItem("Elige una opcion");
+        Zona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ZonaMouseClicked(evt);
+            }
+        });
+        Zona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ZonaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout DatosLayout = new javax.swing.GroupLayout(Datos);
         Datos.setLayout(DatosLayout);
@@ -146,18 +156,18 @@ public class IngresoDatos extends javax.swing.JFrame {
                             .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(DatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Precio, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(ID, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(Tamano, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(Recamaras, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(Bano, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(Cocina, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(Comedor, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(Sala, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(Internet, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                            .addComponent(Precio)
+                            .addComponent(ID)
+                            .addComponent(Tamano)
+                            .addComponent(Recamaras)
+                            .addComponent(Bano)
+                            .addComponent(Cocina)
+                            .addComponent(Comedor)
+                            .addComponent(Sala)
+                            .addComponent(Internet)
                             .addComponent(Zona, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(DatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(Cambiar, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                        .addComponent(Cambiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(DatosLayout.createSequentialGroup()
                             .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(28, 28, 28)
@@ -241,7 +251,7 @@ public class IngresoDatos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(Datos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
@@ -286,6 +296,7 @@ public class IngresoDatos extends javax.swing.JFrame {
         // TODO add your handling code here:
         Consultas datos = new Consultas();
         datos.seleccionar(tablamuestra, ID, Precio, Tamano, Zona, Recamaras, Bano, Cocina, Comedor, Sala, Internet);
+        dato = datos.selec(tablamuestra);
         Cambiar.setEnabled(true);
     }//GEN-LAST:event_tablamuestraMouseClicked
 
@@ -310,9 +321,19 @@ public class IngresoDatos extends javax.swing.JFrame {
     private void CambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CambiarActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        Modificar m = new Modificar(ID);
+        Modificar m = new Modificar(ID, dato);
         m.setVisible(true);
     }//GEN-LAST:event_CambiarActionPerformed
+
+    private void ZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZonaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ZonaActionPerformed
+
+    private void ZonaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ZonaMouseClicked
+        // TODO add your handling code here:
+         Consultas datos = new Consultas();
+        datos.comboZona(Zona);
+    }//GEN-LAST:event_ZonaMouseClicked
 
     /**
      * @param args the command line arguments

@@ -181,6 +181,27 @@ public class Consultas {
         box.setModel(new DefaultComboBoxModel<>(categorias));
     }
     
+    public int selec(JTable tabla){
+        int x = 0;
+        
+           
+            int fila = tabla.getSelectedRow();
+            String dato = "";
+            if(fila >= 0){
+                
+                dato = tabla.getValueAt(fila, 10).toString();
+                
+            }
+            
+        if(dato.equals("En renta")){
+                return x = 1;
+            }
+            else{
+                return x = 0;
+            }
+
+    }
+    
     public float calcularPrecioAjustado(JComboBox zona) {
         float incremento = 0;
         float precioBase = 5000;

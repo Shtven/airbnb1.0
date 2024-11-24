@@ -15,11 +15,12 @@ public class Modificar extends javax.swing.JFrame {
     /**
      * Creates new form Modificar
      */
-    public Modificar(JTextField ide) {
+    public Modificar(JTextField ide, int dato) {
         initComponents();
         id.setText(ide.getText());
         Consultas datos = new Consultas();
         datos.comboDisponible(disponibilidad);
+        disponibilidad.setSelectedIndex(dato);
         id.setEnabled(false);
     }
 
@@ -53,7 +54,6 @@ public class Modificar extends javax.swing.JFrame {
             }
         });
 
-        disponibilidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         disponibilidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 disponibilidadActionPerformed(evt);
