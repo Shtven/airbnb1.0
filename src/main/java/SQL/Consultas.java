@@ -152,6 +152,8 @@ public class Consultas {
         SQLconection sql = new SQLconection();
         
         String consulta = "update Airbnb set ESTADO = ? where ID = ?";
+        String consulta2 = "INSERT INTO DISPONIBLE (ID, CANTIDAD) VALUES (?, ?)";
+        
         
         try{
            
@@ -161,6 +163,15 @@ public class Consultas {
             ct.setInt(2,Integer.parseInt(id.getText()));
             
             ct.execute();
+            
+            if(dato.equals("En renta")){
+                CallableStatement cs = sql.conexion().prepareCall(consulta2);
+                
+                cs.setInt(1, Integer.parseInt(id.getText()));
+                cs.setInt(2, 1);
+                
+                cs.execute();
+            }
             
             JOptionPane.showMessageDialog(null, "Dato actualizado.");
             
@@ -224,5 +235,43 @@ public class Consultas {
         }
 
         return precioBase + incremento;
+    }
+    
+        public void tablaEstadisticas(JTable tabla){
+        SQLconection sqlserver = new SQLconection();
+        DefaultTableModel modelo = new DefaultTableModel();
+        
+        String sql="";
+        
+        modelo.addColumn("ID");
+        modelo.addColumn("Veces que se rentó");
+        
+        
+        tabla.setModel(modelo);
+        
+        sql = "select * from CANTIDAD_RENTA";
+        
+        String [] valores = new String [2];
+        
+        Statement st;
+        
+        try{
+            st = sqlserver.conexion().createStatement();
+            ResultSet result = st.executeQuery(sql);
+            
+            while(result.next()){
+                valores[0] = result.getString(1);
+                valores[1] = result.getString(2);
+               
+                
+                
+                modelo.addRow(valores);
+            }
+            
+            tabla.setModel(modelo);
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Datos no mostrados. Error: " + e.toString());
+        }
     }
 }

@@ -22,6 +22,7 @@ public class Modificar extends javax.swing.JFrame {
         datos.comboDisponible(disponibilidad);
         disponibilidad.setSelectedIndex(dato);
         id.setEnabled(false);
+        guardarDatos.setEnabled(false);
     }
 
     /**
@@ -113,6 +114,7 @@ public class Modificar extends javax.swing.JFrame {
 
     private void disponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disponibilidadActionPerformed
         // TODO add your handling code here:
+        guardarDatos.setEnabled(true);
         
     }//GEN-LAST:event_disponibilidadActionPerformed
 
@@ -121,6 +123,7 @@ public class Modificar extends javax.swing.JFrame {
         String dato = disponibilidad.getSelectedItem().toString();
         Consultas datos = new Consultas();
         datos.actualizarDato(id, dato);
+        this.dispose();
         
     }//GEN-LAST:event_guardarDatosActionPerformed
 
