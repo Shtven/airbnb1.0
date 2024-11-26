@@ -15,7 +15,8 @@ public class Estadisticas extends javax.swing.JFrame {
      */
     public Estadisticas() {
         initComponents();
-        
+        Consultas datos = new Consultas();
+        datos.tablaEstadisticas(estadisticas);
     }
 
     /**
@@ -94,8 +95,7 @@ public class Estadisticas extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        Consultas datos = new Consultas();
-        datos.tablaEstadisticas(estadisticas);
+        
     }//GEN-LAST:event_formWindowOpened
 
     /**
