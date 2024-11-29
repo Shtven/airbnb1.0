@@ -27,8 +27,9 @@ public class Consultas {
         
         modelo.addColumn("ID");
         modelo.addColumn("Precio");
-        modelo.addColumn("Tamaño(m2)");
+        modelo.addColumn("Tamaño");
         modelo.addColumn("Zona");
+        modelo.addColumn("Fecha de Registro");
         modelo.addColumn("Recamaras");
         modelo.addColumn("Baño");
         modelo.addColumn("Cocina");
@@ -41,7 +42,7 @@ public class Consultas {
         
         sql = "SELECT * FROM Airbnb;";
         
-        String [] valores = new String [11];
+        String [] valores = new String [12];
         
         Statement st;
         
@@ -61,6 +62,9 @@ public class Consultas {
                 valores[8] = result.getString(9);
                 valores[9] = result.getString(10);
                 valores[10] = result.getString(11);
+                valores[11] = result.getString(12);
+                
+                
                 
                 
                 modelo.addRow(valores);
@@ -73,24 +77,25 @@ public class Consultas {
         }
     }
     
-    public void insertar(float precio, JTextField tamaño, JComboBox zona, JTextField recamaras, JTextField baño, JTextField cocina, JTextField comedor, JTextField sala, JTextField internet){
+    public void insertar(float precio, JComboBox tamaño, JComboBox zona, JTextField fecha, JTextField recamaras, JTextField baño, JTextField cocina, JTextField comedor, JTextField sala, JTextField internet){
         SQLconection sql = new SQLconection();
         
-        String consulta = "insert into Airbnb (PRECIO, TAMANO, ZONA, RECAMARAS, BAÑO, COCINA, COMEDOR, SALA, INTERNET) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String consulta = "insert into Airbnb (PRECIO, TAMANO, ZONA, FECHAINGRESO, RECAMARAS, BAÑO, COCINA, COMEDOR, SALA, INTERNET) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         try{
            
             CallableStatement ct = sql.conexion().prepareCall(consulta);
             
             ct.setFloat(1,precio);
-            ct.setFloat(2, Float.parseFloat(tamaño.getText()));
+            ct.setString(2,tamaño.getSelectedItem().toString());
             ct.setString(3, zona.getSelectedItem().toString());
-            ct.setInt(4, Integer.parseInt(recamaras.getText()));
-            ct.setInt(5, Integer.parseInt(baño.getText()));
-            ct.setInt(6, Integer.parseInt(cocina.getText()));
-            ct.setInt(7, Integer.parseInt(comedor.getText()));
-            ct.setInt(8, Integer.parseInt(sala.getText()));
-            ct.setString(9, internet.getText());
+            ct.setString(4, fecha.getText());
+            ct.setInt(5, Integer.parseInt(recamaras.getText()));
+            ct.setInt(6, Integer.parseInt(baño.getText()));
+            ct.setInt(7, Integer.parseInt(cocina.getText()));
+            ct.setInt(8, Integer.parseInt(comedor.getText()));
+            ct.setInt(9, Integer.parseInt(sala.getText()));
+            ct.setString(10, internet.getText());
             
             ct.execute();
             
@@ -102,7 +107,7 @@ public class Consultas {
     }
         
         
-    public void seleccionar(JTable tabla, JTextField id, JTextField precio, JTextField tamaño, JComboBox zona, JTextField recamaras, JTextField baño, JTextField cocina, JTextField comedor, JTextField sala, JTextField internet){
+    public void seleccionar(JTable tabla, JTextField id, JTextField precio, JComboBox tamaño, JComboBox zona, JTextField fecha, JTextField recamaras, JTextField baño, JTextField cocina, JTextField comedor, JTextField sala, JTextField internet){
         
         try{
            
@@ -111,14 +116,15 @@ public class Consultas {
             if(fila >= 0){
                 id.setText(tabla.getValueAt(fila, 0).toString());
                 precio.setText(tabla.getValueAt(fila, 1).toString());
-                tamaño.setText(tabla.getValueAt(fila, 2).toString());
+                tamaño.setSelectedItem(tabla.getValueAt(fila, 2).toString());
                 zona.setSelectedItem(tabla.getValueAt(fila, 3).toString());
-                recamaras.setText(tabla.getValueAt(fila, 4).toString());
-                baño.setText(tabla.getValueAt(fila, 5).toString());
-                cocina.setText(tabla.getValueAt(fila, 6).toString());
-                comedor.setText(tabla.getValueAt(fila, 7).toString());
-                sala.setText(tabla.getValueAt(fila, 8).toString());
-                internet.setText(tabla.getValueAt(fila, 9).toString());
+                fecha.setText(tabla.getValueAt(fila, 4).toString());
+                recamaras.setText(tabla.getValueAt(fila, 5).toString());
+                baño.setText(tabla.getValueAt(fila, 6).toString());
+                cocina.setText(tabla.getValueAt(fila, 7).toString());
+                comedor.setText(tabla.getValueAt(fila, 8).toString());
+                sala.setText(tabla.getValueAt(fila, 9).toString());
+                internet.setText(tabla.getValueAt(fila, 10).toString());
             }
             
         } 
@@ -213,31 +219,7 @@ public class Consultas {
 
     }
     
-    public float calcularPrecioAjustado(JComboBox zona) {
-        float incremento = 0;
-        float precioBase = 5000;
-        
-        switch (zona.getSelectedItem().toString()) {
-            case "Norte":
-            case "Sur":
-                incremento = 1500;
-                break;
-            case "Oriente":
-            case "Poniente":
-                incremento = 2500;
-                break;
-            case "Centro":
-                incremento = 3000;
-                break;
-            default:
-                System.out.println("Zona no reconocida, sin incremento.");
-                break;
-        }
-
-        return precioBase + incremento;
-    }
-    
-        public void tablaEstadisticas(JTable tabla){
+    public void tablaEstadisticas(JTable tabla){
         SQLconection sqlserver = new SQLconection();
         DefaultTableModel modelo = new DefaultTableModel();
         
