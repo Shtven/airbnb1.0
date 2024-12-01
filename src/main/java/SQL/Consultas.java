@@ -74,7 +74,7 @@ public class Consultas {
             }
             
                 tabla.setModel(modelo);
-            tabla.setPreferredScrollableViewportSize(new Dimension(1000, 300));
+            tabla.setPreferredScrollableViewportSize(new Dimension(1050, 300));
                         
             JScrollPane scrollPane = new JScrollPane(tabla);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
