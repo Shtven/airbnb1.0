@@ -4,6 +4,8 @@
  */
 package SQL;
 
+import javax.swing.JScrollBar;
+
 /**
  *
  * @author gdemg
@@ -16,7 +18,8 @@ public class IngresoDatos extends javax.swing.JFrame {
     public IngresoDatos() {
         initComponents();
         Consultas datos = new Consultas();
-        datos.mostrarTabla(tablamuestra);
+        datos.mostrarTabla(tablamuestra, Paneltabla);
+        
         datos.comboZona(Zona);
         ID.setEnabled(false);
         Cambiar.setEnabled(false);
@@ -60,6 +63,8 @@ public class IngresoDatos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         Fecha = new javax.swing.JTextField();
         Renta = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Paneltabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablamuestra = new javax.swing.JTable();
 
@@ -254,23 +259,31 @@ public class IngresoDatos extends javax.swing.JFrame {
                 .addGap(91, 91, 91))
         );
 
-        tablamuestra.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
+        Paneltabla.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0)), "Datos"));
 
-            }
-        ));
         tablamuestra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablamuestraMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tablamuestra);
+
+        javax.swing.GroupLayout PaneltablaLayout = new javax.swing.GroupLayout(Paneltabla);
+        Paneltabla.setLayout(PaneltablaLayout);
+        PaneltablaLayout.setHorizontalGroup(
+            PaneltablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PaneltablaLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 838, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        PaneltablaLayout.setVerticalGroup(
+            PaneltablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PaneltablaLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -279,18 +292,18 @@ public class IngresoDatos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(Datos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addGap(33, 33, 33)
+                .addComponent(Paneltabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(202, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Datos, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Datos, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Paneltabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
@@ -316,20 +329,12 @@ public class IngresoDatos extends javax.swing.JFrame {
         Internet.setText(null);
         Cambiar.setEnabled(false);
         
-        datos.mostrarTabla(tablamuestra);
+        datos.mostrarTabla(tablamuestra, Paneltabla);
     }//GEN-LAST:event_guardarActionPerformed
 
     private void SalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SalaActionPerformed
-
-    private void tablamuestraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablamuestraMouseClicked
-        // TODO add your handling code here:
-        Consultas datos = new Consultas();
-        datos.seleccionar(tablamuestra, ID, Precio, Tamano, Zona, Fecha, Recamaras, Bano, Cocina, Comedor, Sala, Internet);
-        dato = datos.selec(tablamuestra);
-        Cambiar.setEnabled(true);
-    }//GEN-LAST:event_tablamuestraMouseClicked
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // TODO add your handling code here:
@@ -347,7 +352,8 @@ public class IngresoDatos extends javax.swing.JFrame {
         Sala.setText(null);
         Internet.setText(null);
         
-        datos.mostrarTabla(tablamuestra);
+        datos.mostrarTabla(tablamuestra, Paneltabla);
+        
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void CambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CambiarActionPerformed
@@ -372,6 +378,14 @@ public class IngresoDatos extends javax.swing.JFrame {
         window.setVisible(true);
         
     }//GEN-LAST:event_RentaActionPerformed
+
+    private void tablamuestraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablamuestraMouseClicked
+        // TODO add your handling code here:
+        Consultas datos = new Consultas();
+        datos.seleccionar(tablamuestra, ID, Precio, Tamano, Zona, Fecha, Recamaras, Bano, Cocina, Comedor, Sala, Internet);
+        Cambiar.setEnabled(true);
+        
+    }//GEN-LAST:event_tablamuestraMouseClicked
 
     /**
      * @param args the command line arguments
@@ -418,6 +432,7 @@ public class IngresoDatos extends javax.swing.JFrame {
     private javax.swing.JTextField Fecha;
     private javax.swing.JTextField ID;
     private javax.swing.JTextField Internet;
+    private javax.swing.JPanel Paneltabla;
     private javax.swing.JTextField Precio;
     private javax.swing.JTextField Recamaras;
     private javax.swing.JButton Renta;
@@ -437,6 +452,7 @@ public class IngresoDatos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablamuestra;
     // End of variables declaration//GEN-END:variables
 }

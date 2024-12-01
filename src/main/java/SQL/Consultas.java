@@ -4,6 +4,8 @@
  */
 package SQL;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -19,11 +21,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Consultas {
         
-    public void mostrarTabla(JTable tabla){
+    public void mostrarTabla(JTable tabla, JPanel panel){
         SQLconection sqlserver = new SQLconection();
         DefaultTableModel modelo = new DefaultTableModel();
         
         String sql="";
+        
         
         modelo.addColumn("ID");
         modelo.addColumn("Precio");
@@ -70,8 +73,21 @@ public class Consultas {
                 modelo.addRow(valores);
             }
             
-            tabla.setModel(modelo);
-            
+                tabla.setModel(modelo);
+            tabla.setPreferredScrollableViewportSize(new Dimension(1000, 300));
+                        
+            JScrollPane scrollPane = new JScrollPane(tabla);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+            panel.removeAll();
+        panel.setLayout(new BorderLayout()); // Asegurarse de que el JScrollPane ocupe todo el espacio
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Refrescar el panel
+        panel.revalidate();
+        panel.repaint();
+                      
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, "Datos no mostrados. Error: " + e.toString());
         }
@@ -219,7 +235,7 @@ public class Consultas {
 
     }
     
-    public void tablaEstadisticas(JTable tabla){
+    public void tablaEstadisticas(JTable tabla, JPanel panel){
         SQLconection sqlserver = new SQLconection();
         DefaultTableModel modelo = new DefaultTableModel();
         
@@ -244,14 +260,25 @@ public class Consultas {
             while(result.next()){
                 valores[0] = result.getString(1);
                 valores[1] = result.getString(2);
-               
-                
                 
                 modelo.addRow(valores);
             }
             
             tabla.setModel(modelo);
             
+            tabla.setPreferredScrollableViewportSize(new Dimension(555, 300));
+                        
+            JScrollPane scrollPane = new JScrollPane(tabla);
+            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+            panel.removeAll();
+            panel.setLayout(new BorderLayout()); // Asegurarse de que el JScrollPane ocupe todo el espacio
+            panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Refrescar el panel
+            panel.revalidate();
+            panel.repaint();
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, "Datos no mostrados. Error: " + e.toString());
         }
