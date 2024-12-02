@@ -73,7 +73,7 @@ public class Consultas {
                 modelo.addRow(valores);
             }
             
-                tabla.setModel(modelo);
+            tabla.setModel(modelo);
             tabla.setPreferredScrollableViewportSize(new Dimension(1050, 300));
                         
             JScrollPane scrollPane = new JScrollPane(tabla);
@@ -81,12 +81,11 @@ public class Consultas {
             scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
             panel.removeAll();
-        panel.setLayout(new BorderLayout()); // Asegurarse de que el JScrollPane ocupe todo el espacio
-        panel.add(scrollPane, BorderLayout.CENTER);
+            panel.setLayout(new BorderLayout());
+            panel.add(scrollPane, BorderLayout.CENTER);
 
-        // Refrescar el panel
-        panel.revalidate();
-        panel.repaint();
+            panel.revalidate();
+            panel.repaint();
                       
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, "Datos no mostrados. Error: " + e.toString());
@@ -273,10 +272,9 @@ public class Consultas {
             scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
             panel.removeAll();
-            panel.setLayout(new BorderLayout()); // Asegurarse de que el JScrollPane ocupe todo el espacio
+            panel.setLayout(new BorderLayout());
             panel.add(scrollPane, BorderLayout.CENTER);
 
-        // Refrescar el panel
             panel.revalidate();
             panel.repaint();
         } catch (Exception e){
