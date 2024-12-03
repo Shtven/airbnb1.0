@@ -288,7 +288,7 @@ public class Consultas {
     
     
     // Método para obtener propiedades que llevan más de un año registradas
-    public void obtenerPropiedadesParaCambiarPrecio(JTextArea label) {
+    public void obtenerPropiedadesParaCambiarPrecio() {
         SQLconection sqlserver = new SQLconection();
         ArrayList<String> alertas = new ArrayList<>();
         PreparedStatement ps = null;
@@ -301,7 +301,7 @@ public class Consultas {
         String query = "SELECT ID, PRECIO, FECHAINGRESO, " +
                        "       DATEDIFF(YEAR, FECHAINGRESO, GETDATE()) AS Anios " +
                        "FROM Airbnb " +
-                       "WHERE DATEDIFF(YEAR, FECHAINGRESO, GETDATE()) > 1;";
+                       "WHERE DATEDIFF(YEAR, FECHAINGRESO, GETDATE()) >= 1;";
 
         ps = con.prepareStatement(query);
         rs = ps.executeQuery();
@@ -327,7 +327,7 @@ public class Consultas {
             alertageneral = alertageneral + alerta;
             }
             
-            label.setText(alertageneral);
+            JOptionPane.showInternalMessageDialog(null,alertageneral);
         } 
         else {
             System.out.println("No hay propiedades que necesiten cambio de precio.");

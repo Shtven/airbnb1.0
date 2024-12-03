@@ -19,7 +19,7 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         this.pack();
          Consultas datos = new Consultas();
-         datos.obtenerPropiedadesParaCambiarPrecio(jTextArea1);
+//         datos.obtenerPropiedadesParaCambiarPrecio(jTextArea1);
          
     }
 

@@ -18,7 +18,7 @@ public class IngresoDatos extends javax.swing.JFrame {
     public IngresoDatos() {
         initComponents();
         Consultas datos = new Consultas();
-//        datos.obtenerPropiedadesParaCambiarPrecio();
+        datos.obtenerPropiedadesParaCambiarPrecio();
         datos.mostrarTabla(tablamuestra, Paneltabla);
         datos.comboZona(Zona);
         ID.setEnabled(false);
