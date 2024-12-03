@@ -6,9 +6,13 @@ package SQL;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.List;
 import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -281,4 +285,64 @@ public class Consultas {
             JOptionPane.showMessageDialog(null, "Datos no mostrados. Error: " + e.toString());
         }
     }
+    
+    
+    // Método para obtener propiedades que llevan más de un año registradas
+    public void obtenerPropiedadesParaCambiarPrecio(JTextArea label) {
+        SQLconection sqlserver = new SQLconection();
+        ArrayList<String> alertas = new ArrayList<>();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        try {
+        
+        Connection con = sqlserver.conexion(); 
+        
+        String query = "SELECT ID, PRECIO, FECHAINGRESO, " +
+                       "       DATEDIFF(YEAR, FECHAINGRESO, GETDATE()) AS Anios " +
+                       "FROM Airbnb " +
+                       "WHERE DATEDIFF(YEAR, FECHAINGRESO, GETDATE()) > 1;";
+
+        ps = con.prepareStatement(query);
+        rs = ps.executeQuery();
+
+        
+        while (rs.next()) {
+            int id = rs.getInt("ID");
+            double precio = rs.getDouble("PRECIO");
+            String fechaIngreso = rs.getString("FECHAINGRESO");
+            int anios = rs.getInt("Anios");
+
+            
+            String mensaje = "ALERTA: Propiedad con ID: " + id + 
+                             " registrada el " + fechaIngreso + 
+                             " lleva más de " + anios + " años. Precio actual: " + precio + ". Porcentaje a aumentar al precio: 7.9%. Precio Estimado: " +(precio + (precio * 7.9/100)) + "\n";
+            alertas.add(mensaje);
+        }
+        
+        String alertageneral = "";
+        if (!alertas.isEmpty()) {
+            System.out.println("ALERTAS DE CAMBIO DE PRECIO:");
+            for (String alerta : alertas) {
+            alertageneral = alertageneral + alerta;
+            }
+            
+            label.setText(alertageneral);
+        } 
+        else {
+            System.out.println("No hay propiedades que necesiten cambio de precio.");
+        }
+        }catch (Exception e) {
+    
+        JOptionPane.showMessageDialog(null, "No se pudo mostrar alerta. Error: " + e.toString());
+        } 
+    }
+    
 }
+   
+
+
+
+
+
+
