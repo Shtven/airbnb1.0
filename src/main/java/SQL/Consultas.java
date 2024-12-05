@@ -78,7 +78,7 @@ public class Consultas {
             }
             
             tabla.setModel(modelo);
-            tabla.setPreferredScrollableViewportSize(new Dimension(1050, 300));
+            tabla.setPreferredScrollableViewportSize(new Dimension(1080, 450));
                         
             JScrollPane scrollPane = new JScrollPane(tabla);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -153,18 +153,23 @@ public class Consultas {
     
     }
     
-    public void eliminarDato(JTextField id){
+    public void eliminarDato(int id){
         SQLconection sql = new SQLconection();
         
         String consulta = "delete from Airbnb where ID = ?";
-        
+        String consulta2 = "delete from DISPONIBLE where ID = ?";
         try{
            
-            CallableStatement ct = sql.conexion().prepareCall(consulta);
+            CallableStatement ct = sql.conexion().prepareCall(consulta2);
+            CallableStatement cbt = sql.conexion().prepareCall(consulta);
             
-            ct.setInt(1, Integer.parseInt(id.getText()));
+            ct.setInt(1, id);
             
             ct.execute();
+            
+            cbt.setInt(1, id);
+            
+            cbt.execute();
             
             JOptionPane.showMessageDialog(null, "Datos eliminados.");
             
@@ -173,7 +178,7 @@ public class Consultas {
         }
     }
     
-    public void actualizarDato(JTextField id, String dato){
+    public void actualizarDato(int id, String dato){
         SQLconection sql = new SQLconection();
         
         String consulta = "update Airbnb set ESTADO = ? where ID = ?";
@@ -185,14 +190,14 @@ public class Consultas {
             CallableStatement ct = sql.conexion().prepareCall(consulta);
             
             ct.setString(1, dato);
-            ct.setInt(2,Integer.parseInt(id.getText()));
+            ct.setInt(2,id);
             
             ct.execute();
             
             if(dato.equals("En renta")){
                 CallableStatement cs = sql.conexion().prepareCall(consulta2);
                 
-                cs.setInt(1, Integer.parseInt(id.getText()));
+                cs.setInt(1, id);
                 cs.setInt(2, 1);
                 
                 cs.execute();
@@ -225,7 +230,7 @@ public class Consultas {
             String dato = "";
             if(fila >= 0){
                 
-                dato = tabla.getValueAt(fila, 10).toString();
+                dato = tabla.getValueAt(fila, 11).toString();
                 
             }
             
@@ -236,6 +241,19 @@ public class Consultas {
                 return x = 0;
             }
 
+    }
+    
+    public String selecDato(JTable tabla){
+        
+            int fila = tabla.getSelectedRow();
+            String dato = "";
+            if(fila >= 0){
+                
+                dato = tabla.getValueAt(fila, 0).toString();
+                
+            }
+            
+            return dato;
     }
     
     public void tablaEstadisticas(JTable tabla, JPanel panel){
@@ -322,7 +340,6 @@ public class Consultas {
         
         String alertageneral = "";
         if (!alertas.isEmpty()) {
-            System.out.println("ALERTAS DE CAMBIO DE PRECIO:");
             for (String alerta : alertas) {
             alertageneral = alertageneral + alerta;
             }

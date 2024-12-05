@@ -339,8 +339,6 @@ public class IngresoDatos extends javax.swing.JFrame {
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // TODO add your handling code here:
         Consultas datos = new Consultas();
-        datos.eliminarDato(ID);
-        
         ID.setText(null);
         Precio.setText("5000");
         Tamano.setSelectedIndex(0);
@@ -359,8 +357,6 @@ public class IngresoDatos extends javax.swing.JFrame {
     private void CambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CambiarActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        Modificar m = new Modificar(ID, dato);
-        m.setVisible(true);
     }//GEN-LAST:event_CambiarActionPerformed
 
     private void ZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ZonaActionPerformed
@@ -383,6 +379,7 @@ public class IngresoDatos extends javax.swing.JFrame {
         // TODO add your handling code here:
         Consultas datos = new Consultas();
         datos.seleccionar(tablamuestra, ID, Precio, Tamano, Zona, Fecha, Recamaras, Bano, Cocina, Comedor, Sala, Internet);
+        dato = datos.selec(tablamuestra);
         Cambiar.setEnabled(true);
         
     }//GEN-LAST:event_tablamuestraMouseClicked
