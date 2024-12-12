@@ -8,14 +8,14 @@ package SQL;
  *
  * @author gdemg
  */
-public class tablaDatos extends javax.swing.JFrame {
+public class tabla extends javax.swing.JFrame {
 
     private int id = 0;
     private int dato = 0;
     /**
      * Creates new form tablaDatos
      */
-    public tablaDatos() {
+    public tabla() {
         initComponents();
         Consultas datos = new Consultas();
         datos.obtenerPropiedadesParaCambiarPrecio();
@@ -39,10 +39,18 @@ public class tablaDatos extends javax.swing.JFrame {
         eliminarvivienda = new javax.swing.JButton();
         disponibilidad = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
+        Paneltabla.setBackground(new java.awt.Color(255, 255, 255));
         Paneltabla.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0)));
 
+        tablamuestra.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 51)));
+        tablamuestra.setFont(new java.awt.Font("Bahnschrift", 0, 12)); // NOI18N
         tablamuestra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -51,6 +59,10 @@ public class tablaDatos extends javax.swing.JFrame {
 
             }
         ));
+        tablamuestra.setToolTipText("");
+        tablamuestra.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablamuestra.setGridColor(new java.awt.Color(255, 0, 0));
+        tablamuestra.setSelectionBackground(new java.awt.Color(224, 86, 91));
         tablamuestra.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablamuestraMouseClicked(evt);
@@ -62,19 +74,20 @@ public class tablaDatos extends javax.swing.JFrame {
         Paneltabla.setLayout(PaneltablaLayout);
         PaneltablaLayout.setHorizontalGroup(
             PaneltablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PaneltablaLayout.createSequentialGroup()
-                .addContainerGap(249, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(241, 241, 241))
+            .addGroup(PaneltablaLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 958, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         PaneltablaLayout.setVerticalGroup(
             PaneltablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PaneltablaLayout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+            .addGroup(PaneltablaLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
+        eliminarvivienda.setFont(new java.awt.Font("SimSun-ExtG", 1, 14)); // NOI18N
         eliminarvivienda.setText("Eliminar ");
         eliminarvivienda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,6 +95,7 @@ public class tablaDatos extends javax.swing.JFrame {
             }
         });
 
+        disponibilidad.setFont(new java.awt.Font("SimSun-ExtG", 1, 14)); // NOI18N
         disponibilidad.setText("Disponibilidad");
         disponibilidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,7 +127,7 @@ public class tablaDatos extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(eliminarvivienda, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(disponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
@@ -138,44 +152,21 @@ public class tablaDatos extends javax.swing.JFrame {
     private void disponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disponibilidadActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        Modificar m = new Modificar(id, dato);
+        Modifica m = new Modifica(id, dato);
         m.setVisible(true);
     }//GEN-LAST:event_disponibilidadActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        this.dispose();
+        Menu m = new Menu();
+        m.setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tablaDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tablaDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tablaDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tablaDatos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new tablaDatos().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Paneltabla;

@@ -104,8 +104,8 @@ public class Estadisticas extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
         this.dispose();
-        IngresoDatos id = new IngresoDatos();
-        id.setVisible(true);
+        Menu m = new Menu();
+        m.setVisible(true);
     }//GEN-LAST:event_formWindowClosed
 
     /**

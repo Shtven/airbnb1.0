@@ -33,10 +33,10 @@ public class Consultas {
         
         
         modelo.addColumn("ID");
-        modelo.addColumn("Precio");
+        modelo.addColumn("PrecioRenta");
         modelo.addColumn("Tamaño");
         modelo.addColumn("Zona");
-        modelo.addColumn("Fecha de Registro");
+        modelo.addColumn("Registro");
         modelo.addColumn("Recamaras");
         modelo.addColumn("Baño");
         modelo.addColumn("Cocina");
@@ -77,19 +77,7 @@ public class Consultas {
                 modelo.addRow(valores);
             }
             
-            tabla.setModel(modelo);
-            tabla.setPreferredScrollableViewportSize(new Dimension(1080, 450));
-                        
-            JScrollPane scrollPane = new JScrollPane(tabla);
-            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-            panel.removeAll();
-            panel.setLayout(new BorderLayout());
-            panel.add(scrollPane, BorderLayout.CENTER);
-
-            panel.revalidate();
-            panel.repaint();
                       
         } catch (Exception e){
             JOptionPane.showMessageDialog(null, "Datos no mostrados. Error: " + e.toString());
